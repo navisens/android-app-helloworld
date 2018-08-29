@@ -3,6 +3,7 @@ package com.navisens.demo.android_app_helloworld;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements MotionDnaInterfac
     Hashtable<String, Double> networkUsersTimestamps = new Hashtable<String, Double>();
     TextView textView;
     TextView networkTextView;
+    private static final int REQUEST_MDNA_PERMISSIONS=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,14 @@ public class MainActivity extends AppCompatActivity implements MotionDnaInterfac
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.HELLO);
         networkTextView = findViewById(R.id.network);
+
+        // Requests app
+        ActivityCompat.requestPermissions(this,MotionDnaApplication.needsRequestingPermissions()
+                , REQUEST_MDNA_PERMISSIONS);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         startMotionDna();
     }
 
