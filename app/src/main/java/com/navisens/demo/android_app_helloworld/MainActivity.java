@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements MotionDnaInterfac
     }
 
     public void startMotionDna() {
-        String devKey = "4e7485cfe0c552a50112f33c573dca8c4e174786a59a6e407a589aa6d1d71d7a";
+        String devKey = "<ENTER YOUR DEV KEY HERE>";
 
         motionDnaApplication = new MotionDnaApplication(this);
         motionDnaApplication.runMotionDna(devKey);
