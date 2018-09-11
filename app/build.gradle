@@ -19,8 +19,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['MotionDnaSDK_debug.aar'])
-//    implementation group: "com.navisens", name: "motiondnaapi", version: "1.7.0", changing: true
+    implementation group: "com.navisens", name: "motiondnaapi", version: "1.7.1", changing: true
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
