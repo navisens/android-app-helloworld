@@ -19,7 +19,7 @@ ___Note: This app is designed to run on Android 4.1 or higher___
 ## Setup
 
 Enter your developer key in `app/src/main/java/com/navisens/demo/android_app_helloworld/MainActivity.java` and run the app.
-```
+```java
 public void startMotionDna() {
         String devKey = "<ENTER YOUR DEV KEY HERE>";
 ```
@@ -39,7 +39,7 @@ In [android-app-helloworld](https://github.com/navisens/android-app-helloworld) 
 `public class MainActivity extends AppCompatActivity implements MotionDnaInterface`
 
 In callback function we return `MotionDna` which contains [location, heading and motion type](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#getters). Let's print it out.
-```
+```java
 @Override
     public void receiveMotionDna(MotionDna motionDna)
     {
@@ -53,14 +53,20 @@ In callback function we return `MotionDna` which contains [location, heading and
 ```
 
 Declare, and pass the class which implements `MotionDnaInterface`  
-`MotionDnaApplication motionDnaApplication;`  
-`motionDnaApplication = new MotionDnaApplication(this);`
+```java
+MotionDnaApplication motionDnaApplication;
+motionDnaApplication = new MotionDnaApplication(this);
+```
 
 Run MotionDna  
-`motionDnaApplication.runMotionDna(devKey);`
+```java
+motionDnaApplication.runMotionDna(devKey);
+```
 
 Add some configurations  
-`motionDnaApplication.setLocationNavisens();`  
-`motionDnaApplication.setCallbackUpdateRateInMs(500);`
+```java
+motionDnaApplication.setLocationNavisens();
+motionDnaApplication.setCallbackUpdateRateInMs(500);
+```
 
 More configurations are listed [here](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#control)
