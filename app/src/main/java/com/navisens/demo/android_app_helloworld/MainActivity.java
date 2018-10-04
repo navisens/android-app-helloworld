@@ -240,6 +240,10 @@ public class MainActivity extends AppCompatActivity implements MotionDnaInterfac
     }
 
     protected void onDestroy() {
+
+        // Shuts downs the MotionDna Core
+        motionDnaApplication.stop();
+
         // Handle destruction of the foreground service if
         // it is enabled
         if (motionDnaServiceIntent != null) {
