@@ -1,8 +1,10 @@
 package com.navisens.demo.android_app_helloworld;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,9 +48,21 @@ public class MainActivity extends AppCompatActivity implements MotionDnaInterfac
                 , REQUEST_MDNA_PERMISSIONS);
     }
 
+    Intent motionDnaServiceIntent;
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        startMotionDna();
+        if (MotionDnaApplication.checkMotionDnaPermissions(this)) // permissions already requested
+        {
+
+            // Starts a foreground service to ensure that the
+            // App continues to sample the sensors in background
+            motionDnaServiceIntent = new Intent(getAppContext(), MotionDnaForegroundService.class);
+            getAppContext().startService(motionDnaServiceIntent);
+
+            // Start the MotionDna Core
+            startMotionDna();
+        }
     }
 
     public void startMotionDna() {
@@ -223,5 +237,14 @@ public class MainActivity extends AppCompatActivity implements MotionDnaInterfac
     @Override
     public Context getAppContext() {
         return getApplicationContext();
+    }
+
+    protected void onDestroy() {
+        // Handle destruction of the foreground service if
+        // it is enabled
+        if (motionDnaServiceIntent != null) {
+            getAppContext().stopService(motionDnaServiceIntent);
+        }
+        super.onDestroy();
     }
 }
