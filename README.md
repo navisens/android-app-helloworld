@@ -32,7 +32,7 @@ Please refer to our [NaviDoc](https://github.com/navisens/NaviDocs/blob/master/A
 
 Here's some quick explaination for how to use our SDK in [android-app-helloworld](https://github.com/navisens/android-app-helloworld):
 
-Add `implementation group: "com.navisens", name: "motiondnaapi", version: "1.7.1", changing: true` into dependencies section in `app/build.gradle` file to use our SDK.
+Add `implementation group: "com.navisens", name: "motiondnaapi", version: "1.9.0", changing: true` into dependencies section in `app/build.gradle` file to use our SDK.
 
 In our SDK we provide `MotionDnaApplication` class and `MotionDnaInterface` interface. In order for MotionDna to work, we need a class implements all callback methods in the interface.  
 In [android-app-helloworld](https://github.com/navisens/android-app-helloworld) it looks like this  
