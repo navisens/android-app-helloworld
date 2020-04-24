@@ -15,6 +15,7 @@ import com.navisens.motiondnaapi.MotionDnaApplication;
 import com.navisens.motiondnaapi.MotionDnaInterface;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -146,6 +147,22 @@ public class MainActivity extends AppCompatActivity implements MotionDnaInterfac
         str += String.format(" (%.2f, %.2f, %.2f)\n",location.x, location.y, location.z);
         str += "Hdg: " + motionDna.getLocation().heading +  " \n";
         str += "motionType: " + motionDna.getMotion().motionType + "\n";
+
+        str += "Predictions: \n\n";
+        HashMap<String, MotionDna.Classifier> classifiers =  motionDna.getClassifiers();
+        for (Map.Entry<String, MotionDna.Classifier> entry : classifiers.entrySet()) {
+            str += String.format("Classifier: %s\n",entry.getKey());
+            str += String.format("\tcurrent prediction: %s confidence: %.2f\n",entry.getValue().currentPredictionLabel, entry.getValue().currentPredictionConfidence);
+            str += "\tprediction stats:\n";
+
+            for (Map.Entry<String, MotionDna.PredictionStats> statsEntry : entry.getValue().predictionStatsMap.entrySet()) {
+                str += String.format("\t%s",statsEntry.getKey());
+                str += String.format("\t duration: %.2f\n",statsEntry.getValue().duration);
+                str += String.format("\t distance: %.2f\n",statsEntry.getValue().distance);
+            }
+            str += "\n";
+        }
+
         textView.setTextColor(Color.BLACK);
 
         final String fstr = str;
