@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements MotionDnaInterfac
         str += "Hdg: " + motionDna.getLocation().heading +  " \n";
         str += "motionType: " + motionDna.getMotion().motionType + "\n";
 
-        str += "Predictions: \n\n";
+        str += "Predictions (BETA): \n\n";
         HashMap<String, MotionDna.Classifier> classifiers =  motionDna.getClassifiers();
         for (Map.Entry<String, MotionDna.Classifier> entry : classifiers.entrySet()) {
             str += String.format("Classifier: %s\n",entry.getKey());
