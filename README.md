@@ -118,7 +118,7 @@ You have a use case that will be outside often and wish to have the SDK determin
 
 ### _Observations (EXPERIMENTAL)_
 #### Common Task:
-A user is indoors and revisits the same areas frequently. Through some outside mechanism the developer is aware of a return to certain landmarks and would like to indicate that the user has returned to a landmark with ID of 38 to aid int he estimation of a users position. The developer also knows that this observation was made within 3 meters of the landmark 38
+A user is indoors and revisits the same areas frequently. Through some outside mechanism the developer is aware of a return to certain landmarks and would like to indicate that the user has returned to a landmark with ID of 38 to aid in the estimation of a user's position. The developer also knows that this observation was made within 3 meters of the landmark 38
 ``` motionDnaSDK.recordObservation(38,3.0); ```
 
 
