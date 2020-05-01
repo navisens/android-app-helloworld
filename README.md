@@ -3,7 +3,7 @@
 An example Java Android project using the Navisens MotionDNA SDK
 
 ## What it does
-This project builds and runs a bare bones implementation of our SDK core. 
+This project builds and runs a bare bones implementation of our SDK core.
 
 The core is on startup, triggering a call to the ```startMotionDna:``` method in the MainActivity.java. After this occurs the activity checks for necessary location permission and if requirements are satisfied, begins to receive Navisens MotionDNA location estimates through the ```receiveMotionDna:``` callback method. The data received is used to update the appropriate TextView element with a user's relative x,y and z coordinated along with GPS data and motion categorizations.
 
@@ -30,15 +30,18 @@ Walk around and see the position.
 
 Please refer to our [NaviDoc](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#api) for full documentation.
 
-Here's some quick explaination for how to use our SDK in [android-app-helloworld](https://github.com/navisens/android-app-helloworld):
+### How you include (and update) the SDK
 
-Add `implementation group: "com.navisens", name: "motiondnaapi", version: "1.9.0", changing: true` into dependencies section in `app/build.gradle` file to use our SDK.
+Add `implementation group: "com.navisens", name: "motiondnaapi", version: "1.9.4", changing: true` into dependencies section in `app/build.gradle` file to use our SDK.
 
-In our SDK we provide `MotionDnaApplication` class and `MotionDnaInterface` interface. In order for MotionDna to work, we need a class implements all callback methods in the interface.  
-In [android-app-helloworld](https://github.com/navisens/android-app-helloworld) it looks like this  
-`public class MainActivity extends AppCompatActivity implements MotionDnaInterface`
+### How you get your [estimated] position
 
-In callback function we return `MotionDna` which contains [location, heading and motion type](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#getters). Let's print it out.
+In our SDK we provide `MotionDnaSDK` class and `MotionDnaInterface` interface. In order for MotionDna to work, we need a class implements all callback methods in the interface.
+In this project it looks like this
+```
+public class MainActivity extends AppCompatActivity implements MotionDnaInterface
+```
+In the `receiveMotionDna()` callback method we return a `MotionDna` estimation object which contains [location, heading and motion type](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#getters) among many other interesting data on a users current state. Let's print it out.
 ```java
 @Override
     public void receiveMotionDna(MotionDna motionDna)
@@ -52,21 +55,72 @@ In callback function we return `MotionDna` which contains [location, heading and
         ...
 ```
 
-Declare, and pass the class which implements `MotionDnaInterface`  
+### How you instantiate the SDK with a receiver
+
+Declare, and pass the class which implements `MotionDnaInterface`
 ```java
-MotionDnaApplication motionDnaApplication;
-motionDnaApplication = new MotionDnaApplication(this);
+MotionDnaSDK motionDnaSDK;
+motionDnaSDK = new MotionDnaSDK(this);
+```
+## Common Configurations (with code examples)
+### Startup
+```java
+motionDnaSDK.runMotionDna("<developer-key>");
+```
+### Startup with Configuration (Model Selection)
+Additional configuration options will be added over time. Current configuration options are only for model seletion in motion estimation. Currently supported models are "standard", "headmount", and "chestmount".
+
+```java
+HashMap<String, Object> configuration = new HashMap<>();
+configuration.put("model","standard");
+motionDnaSDK.run("<developer-key>",confuguration);
 ```
 
-Run MotionDna  
+### Setting SDK Options
+#### Common Task:
+You only require an update of a users position every half a second and would like a user's position in the global frame (latitude and longitude) to be as accuracte as possible
 ```java
-motionDnaApplication.runMotionDna(devKey);
+motionDnaSDK.setCallbackUpdateRateInMs(500);
+motionDnaSDK.setExternalPositioningState(MotionDna.ExternalPositioningState.HIGH_ACCURACY);
 ```
+These should alway be called after the run() or runMotionDna() method has been called
 
-Add some configurations  
-```java
-motionDnaApplication.setLocationNavisens();
-motionDnaApplication.setCallbackUpdateRateInMs(500);
-```
+-------------
 
-More configurations are listed [here](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#control)
+### _Assigning initial position Locally (Cartesian X and Y coordinates)_
+#### Common Tasks:
+You know that a users position should be shifted by 4 meters in the X direction and 9 in the Y direction. Heading should not change. If the current estimated position is (4,3) the updated position should be (8,12)
+``` motionDnaSDK.setCartesianOffsetInMeters(4,9); ```
+
+You wish to update your X and Y positions to 3 in the X and 4 meters in the Y direction. Heading should not be affected
+``` motionDnaSDK.setCartesianPositionXY(3,4); ```
+
+
+-------------
+
+### _Assigning initial position Globally (Latitude and Longitude coordinates)_
+
+#### Common Tasks:
+ You need to update the latitude and longitude to (37.756581, -122.419155). Heading can be taken from the device's compass
+
+``` motionDnaSDK.setLocationLatitudeLongitude(37.756581, -122.419155); ```
+
+ You know the users location is latitude and longitude of (37.756581, -122.419155) with a heading of 3 degrees and need to indicate that to the SDK
+
+``` motionDnaSDK.setLocationLatitudeLongitudeAndHeadingInDegrees(37.756581, -122.419155, 3.0); ```
+
+You have a use case that will be outside often and wish to have the SDK determine a users latitude, longitude and heading automatically
+
+``` motionDnaSDK.setLocationNavisens(); ```
+
+
+------------
+
+### _Observations (EXPERIMENTAL)_
+#### Common Task:
+A user is indoors and revisits the same areas frequently. Through some outside mechanism the developer is aware of a return to certain landmarks and would like to indicate that the user has returned to a landmark with ID of 38 to aid int he estimation of a users position. The developer also knows that this observation was made within 3 meters of the landmark 38
+``` motionDnaSDK.recordObservation(38,3.0); ```
+
+
+
+More API options are listed [here](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#control)
