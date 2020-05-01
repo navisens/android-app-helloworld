@@ -1,11 +1,14 @@
-# Android App Hello World
+# Android App Hello World (Java)
 
 An example Java Android project using the Navisens MotionDNA SDK
+
+___Note: This app is designed to run on Android 5.0 or higher___
+
 
 ## What it does
 This project builds and runs a bare bones implementation of our SDK core.
 
-The core is on startup, triggering a call to the ```startMotionDna:``` method in the MainActivity.java. After this occurs the activity checks for necessary location permission and if requirements are satisfied, begins to receive Navisens MotionDNA location estimates through the ```receiveMotionDna:``` callback method. The data received is used to update the appropriate TextView element with a user's relative x,y and z coordinated along with GPS data and motion categorizations.
+The core is on startup, triggering a call to the ```startMotionDna()``` method in the MainActivity.java. After this occurs the activity checks for necessary location permission and if requirements are satisfied, begins to receive Navisens MotionDNA location estimates through the ```receiveMotionDna()``` callback method. The data received is used to update the appropriate TextView element with a user's relative x,y and z coordinated along with GPS data and motion categorizations.
 
 If multiple devices are running the app with the same developer key and have and active network connection, their device type and delative xyz coordinates will be listed at the bottom of the screen.
 
@@ -13,7 +16,6 @@ Before attempting to run this project please be sure to obtain a develepment key
 
 For more complete documentation on our SDK please visit our [NaviDocs](https://github.com/navisens/NaviDocs)
 
-___Note: This app is designed to run on Android 4.1 or higher___
 
 
 ## Setup
@@ -57,7 +59,7 @@ In the `receiveMotionDna()` callback method we return a `MotionDna` estimation o
 
 ### How you instantiate the SDK with a receiver
 
-Declare, and pass the class which implements `MotionDnaInterface`
+Declare `MotionDnaSDK`, and pass the class which implements `MotionDnaInterface`
 ```java
 MotionDnaSDK motionDnaSDK;
 motionDnaSDK = new MotionDnaSDK(this);
@@ -123,4 +125,4 @@ A user is indoors and revisits the same areas frequently. Through some outside m
 
 
 
-More API options are listed [here](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#control)
+### _More API options are listed [here](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#control)_
