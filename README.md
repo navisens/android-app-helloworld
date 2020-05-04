@@ -20,10 +20,10 @@ For more complete documentation on our SDK please visit our [NaviDocs](https://g
 
 ## Setup
 
-Enter your developer key in `app/src/main/java/com/navisens/demo/android_app_helloworld/MainActivity.java` and run the app.
+Enter your developer key in `app/src/main/java/com/navisens/demo/android_app_helloworld/MainActivity.java` and run the app. If you do not have one yet then please navigate to our [developer sign up](https://www.navisens.com/index.html#contact) to request a free key.
 ```java
 public void startMotionDna() {
-        String devKey = "<ENTER YOUR DEV KEY HERE>";
+        String devKey = "<--ENTER YOUR DEVELOPER KEY HERE-->";
 ```
 
 Walk around and see the position.
@@ -43,7 +43,7 @@ In this project it looks like this
 ```
 public class MainActivity extends AppCompatActivity implements MotionDnaInterface
 ```
-In the `receiveMotionDna()` callback method we return a `MotionDna` estimation object which contains [location, heading and motion type](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#getters) among many other interesting data on a users current state. Let's print it out.
+In the `receiveMotionDna()` callback method we return a `MotionDna` estimation object which contains [location, heading and motion type](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#getters) among many other interesting data on a users current state. Here is how we might print it out.
 ```java
 @Override
     public void receiveMotionDna(MotionDna motionDna)
@@ -125,4 +125,4 @@ A user is indoors and revisits the same areas frequently. Through some outside m
 
 
 
-### _More API options are listed [here](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#control)_
+### _More API options are listed in our [Android Documentation](https://github.com/navisens/NaviDocs/blob/master/API.Android.md#control)_
