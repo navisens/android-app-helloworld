@@ -34,7 +34,7 @@ Please refer to our [NaviDoc](https://github.com/navisens/NaviDocs/blob/master/A
 
 ### How you include (and update) the SDK
 
-Add `implementation group: "com.navisens", name: "motiondnaapi", version: "1.9.4", changing: true` into dependencies section in `app/build.gradle` file to use our SDK.
+Add `implementation group: "com.navisens", name: "motiondnaapi", version: "2.0.0", changing: true` into dependencies section in `app/build.gradle` file to use our SDK.
 
 ### How you get your [estimated] position
 
