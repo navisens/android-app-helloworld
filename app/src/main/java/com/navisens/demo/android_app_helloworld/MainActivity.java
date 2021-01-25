@@ -1,9 +1,11 @@
 package com.navisens.demo.android_app_helloworld;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
 
 import com.navisens.motiondnaapi.MotionDna;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements MotionDnaSDKListe
         String devKey = "<--DEVELOPER-KEY-HERE-->";
 
         motionDnaSDK = new MotionDnaSDK(this.getApplicationContext(),this);
-
+        motionDnaSDK.startForegroundService();
         //    This functions starts up the SDK. You must pass in a valid developer's key in order for
         //    the SDK to function. IF the key has expired or there are other errors, you may receive
         //    those errors through the reportError() callback route.

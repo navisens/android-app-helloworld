@@ -24,6 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name="com.navisens.motiondnaapi.MotionDnaForegroundService"
+            android:foregroundServiceType="location"
+            />
     </application>
 
 </manifest>
