@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements MotionDnaSDKListe
             str += "\n";
         }
 
-        receiveMotionDnaTextView.setTextColor(Color.BLACK);
 
         final String fstr = str;
         runOnUiThread(new Runnable() {
